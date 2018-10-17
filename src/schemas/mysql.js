@@ -15,6 +15,22 @@ var types = {
 }
 
 var lang = {
+  comment: function(comment) {
+    return `--${comment}`
+  },
+
+  insert_empty: function(table) {
+    return `INSERT INTO ${table} DEFAULT VALUES;`
+  },
+
+  str: function (value) {
+    return `"${value}"`
+  },
+
+  set: function (table, id, key, value) {
+    return `UPDATE ${table} SET ${key} = ${value} WHERE id = ${id};`
+  },
+
   create: function (name) {
     return ['CREATE TABLE ', name, ' ('].join('')
   },
@@ -48,20 +64,25 @@ function processObject (obj, options) {
 
   // In-memory storage
   var keys = Object.keys(obj)
+  var data_creation = []
   var output = []
+  var inserts = []
   var tables = []
 
   // Table variables
   var id = null
-  var idType = 'string'
+  var idType = 'number'
 
   // Initialize Table
   output.push(lang.create(name))
 
+  data_creation.push('')
+  data_creation.push(lang.insert_empty(name))
+
   if (parent) {
     output.push(lang.property(parent + '_' + parentId, types[parentIdType]))
   }
-  
+
   // Obtain ID
   var nkey
   for (var i = 0; i < keys.length; i++) {
@@ -96,8 +117,8 @@ function processObject (obj, options) {
     if (type === 'function') {
       continue
     }
-    
-    // pojo
+
+    // pojo (plain old JS object??)
     if (type === 'object' && !value.length) {
       tables.push('')
       tables.push(processObject(value, {
@@ -113,17 +134,18 @@ function processObject (obj, options) {
     if (type === 'object' || type === 'array') {
       if (typeof value[0] === 'object') {
         tables.push('')
+
         tables.push(processObject(value[0], {
           parentTableName: name,
           parentTableId: id,
           parentTableIdType: idType,
           tableName: name + '_' + key
         }).join('\n'))
-        continue      
+        continue
       }
-      
+
       tables.push('')
-      tables.push(processObject({ 
+      tables.push(processObject({
         value: typeof value[0]
       }, {
         parentTableName: name,
@@ -134,14 +156,25 @@ function processObject (obj, options) {
 
       continue
     }
+    //ID is always 0 for initial data unless we're dealing with arrays, which means this is broken for arrays
+    if (type === 'string') {
+      data_creation.push(lang.set(name, 0, lang.str(key), value))
+    } else if (type === 'number') {
+      data_creation.push(lang.set(name, 0, key, value))
+    } else {
+      console.log("UNSUPPORTED TYPE")
+    }
+
+
 
     output.push(lang.property(key, types[type]))
   }
 
   // Handle table keys
   output.push(lang.primary(id))
-  
+
   if (parent) {
+    data_creation.push(lang.set(name, 0, `${parent}_id`, 0))
     output.push(lang.foreign(parent + '_id', parent, parentId))
   }
 
@@ -149,8 +182,9 @@ function processObject (obj, options) {
     .substr(0, Utils.arrayLastItem(output).length - 1)
 
   output.push(lang.close())
+  data_creation.push(``)
 
-  return output.concat(tables)
+  return output.concat(tables).concat(data_creation)
 }
 
 module.exports = function Process (tableName, object) {
