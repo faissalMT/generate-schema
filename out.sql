@@ -1,6 +1,6 @@
 CREATE TABLE generic (
   id INT,
-  type TEXT,
+  type VARCHAR(max),
   PRIMARY KEY (id)
 );
 
@@ -14,17 +14,17 @@ CREATE TABLE generic_baselineData (
 CREATE TABLE generic_baselineData_summary (
   generic_baselineData_id INT,
   id INT,
-  BIDReference TEXT,
-  projectName TEXT,
-  leadAuthority TEXT,
-  jointBidAreas TEXT,
-  projectDescription TEXT,
-  greenOrBrownField TEXT,
+  BIDReference VARCHAR(max),
+  projectName VARCHAR(max),
+  leadAuthority VARCHAR(max),
+  jointBidAreas VARCHAR(max),
+  projectDescription VARCHAR(max),
+  greenOrBrownField VARCHAR(max),
   noOfHousingSites INT,
   totalArea INT,
-  hifFundingAmount TEXT,
-  descriptionOfInfrastructure TEXT,
-  descriptionOfWiderProjectDeliverables TEXT,
+  hifFundingAmount VARCHAR(max),
+  descriptionOfInfrastructure VARCHAR(max),
+  descriptionOfWiderProjectDeliverables VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_id) REFERENCES generic_baselineData(id)
 );
@@ -46,9 +46,9 @@ UPDATE generic_baselineData_summary SET descriptionOfWiderProjectDeliverables = 
 CREATE TABLE generic_baselineData_infrastructures (
   generic_baselineData_id INT,
   id INT,
-  type TEXT,
-  description TEXT,
-  housingSitesBenefitting TEXT,
+  type VARCHAR(max),
+  description VARCHAR(max),
+  housingSitesBenefitting VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_id) REFERENCES generic_baselineData(id)
 );
@@ -56,11 +56,11 @@ CREATE TABLE generic_baselineData_infrastructures (
 CREATE TABLE generic_baselineData_infrastructures_outlinePlanningStatus (
   generic_baselineData_infrastructures_id INT,
   id INT,
-  granted TEXT,
-  reference TEXT,
-  targetSubmission TEXT,
-  targetGranted TEXT,
-  summaryOfCriticalPath TEXT,
+  granted VARCHAR(max),
+  reference VARCHAR(max),
+  targetSubmission VARCHAR(max),
+  targetGranted VARCHAR(max),
+  summaryOfCriticalPath VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_infrastructures_id) REFERENCES generic_baselineData_infrastructures(id)
 );
@@ -76,11 +76,11 @@ UPDATE generic_baselineData_infrastructures_outlinePlanningStatus SET summaryOfC
 CREATE TABLE generic_baselineData_infrastructures_fullPlanningStatus (
   generic_baselineData_infrastructures_id INT,
   id INT,
-  granted TEXT,
-  grantedReference TEXT,
-  targetSubmission TEXT,
-  targetGranted TEXT,
-  summaryOfCriticalPath TEXT,
+  granted VARCHAR(max),
+  grantedReference VARCHAR(max),
+  targetSubmission VARCHAR(max),
+  targetGranted VARCHAR(max),
+  summaryOfCriticalPath VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_infrastructures_id) REFERENCES generic_baselineData_infrastructures(id)
 );
@@ -96,8 +96,8 @@ UPDATE generic_baselineData_infrastructures_fullPlanningStatus SET summaryOfCrit
 CREATE TABLE generic_baselineData_infrastructures_s106 (
   generic_baselineData_infrastructures_id INT,
   id INT,
-  requirement TEXT,
-  summaryOfRequirement TEXT,
+  requirement VARCHAR(max),
+  summaryOfRequirement VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_infrastructures_id) REFERENCES generic_baselineData_infrastructures(id)
 );
@@ -110,7 +110,7 @@ UPDATE generic_baselineData_infrastructures_s106 SET summaryOfRequirement = 'Req
 CREATE TABLE generic_baselineData_infrastructures_statutoryConsents (
   generic_baselineData_infrastructures_id INT,
   id INT,
-  anyConsents TEXT,
+  anyConsents VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_infrastructures_id) REFERENCES generic_baselineData_infrastructures(id)
 );
@@ -118,8 +118,8 @@ CREATE TABLE generic_baselineData_infrastructures_statutoryConsents (
 CREATE TABLE generic_baselineData_infrastructures_statutoryConsents_consents (
   generic_baselineData_infrastructures_statutoryConsents_id INT,
   id INT,
-  detailsOfConsent TEXT,
-  targetDateToBeMet TEXT,
+  detailsOfConsent VARCHAR(max),
+  targetDateToBeMet VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_infrastructures_statutoryConsents_id) REFERENCES generic_baselineData_infrastructures_statutoryConsents(id)
 );
@@ -136,13 +136,13 @@ UPDATE generic_baselineData_infrastructures_statutoryConsents SET anyConsents = 
 CREATE TABLE generic_baselineData_infrastructures_landOwnership (
   generic_baselineData_infrastructures_id INT,
   id INT,
-  underControlOfLA TEXT,
-  ownershipOfLandOtherThanLA TEXT,
-  landAcquisitionRequired TEXT,
+  underControlOfLA VARCHAR(max),
+  ownershipOfLandOtherThanLA VARCHAR(max),
+  landAcquisitionRequired VARCHAR(max),
   howManySitesToAcquire INT,
-  toBeAcquiredBy TEXT,
-  targetDateToAcquire TEXT,
-  summaryOfCriticalPath TEXT,
+  toBeAcquiredBy VARCHAR(max),
+  targetDateToAcquire VARCHAR(max),
+  summaryOfCriticalPath VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_infrastructures_id) REFERENCES generic_baselineData_infrastructures(id)
 );
@@ -160,10 +160,10 @@ UPDATE generic_baselineData_infrastructures_landOwnership SET summaryOfCriticalP
 CREATE TABLE generic_baselineData_infrastructures_procurement (
   generic_baselineData_infrastructures_id INT,
   id INT,
-  contractorProcured TEXT,
-  nameOfContractor TEXT,
-  targetDate TEXT,
-  summaryOfCriticalPath TEXT,
+  contractorProcured VARCHAR(max),
+  nameOfContractor VARCHAR(max),
+  targetDate VARCHAR(max),
+  summaryOfCriticalPath VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_infrastructures_id) REFERENCES generic_baselineData_infrastructures(id)
 );
@@ -178,9 +178,9 @@ UPDATE generic_baselineData_infrastructures_procurement SET summaryOfCriticalPat
 CREATE TABLE generic_baselineData_infrastructures_milestones (
   generic_baselineData_infrastructures_id INT,
   id INT,
-  descriptionOfMilestone TEXT,
-  target TEXT,
-  summaryOfCriticalPath TEXT,
+  descriptionOfMilestone VARCHAR(max),
+  target VARCHAR(max),
+  summaryOfCriticalPath VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_infrastructures_id) REFERENCES generic_baselineData_infrastructures(id)
 );
@@ -194,7 +194,7 @@ UPDATE generic_baselineData_infrastructures_milestones SET summaryOfCriticalPath
 CREATE TABLE generic_baselineData_infrastructures_expectedInfrastructureStart (
   generic_baselineData_infrastructures_id INT,
   id INT,
-  targetDateOfAchievingStart TEXT,
+  targetDateOfAchievingStart VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_infrastructures_id) REFERENCES generic_baselineData_infrastructures(id)
 );
@@ -206,7 +206,7 @@ UPDATE generic_baselineData_infrastructures_expectedInfrastructureStart SET targ
 CREATE TABLE generic_baselineData_infrastructures_expectedInfrastructureCompletion (
   generic_baselineData_infrastructures_id INT,
   id INT,
-  targetDateOfAchievingCompletion TEXT,
+  targetDateOfAchievingCompletion VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_infrastructures_id) REFERENCES generic_baselineData_infrastructures(id)
 );
@@ -218,10 +218,10 @@ UPDATE generic_baselineData_infrastructures_expectedInfrastructureCompletion SET
 CREATE TABLE generic_baselineData_infrastructures_risksToAchievingTimescales (
   generic_baselineData_infrastructures_id INT,
   id INT,
-  descriptionOfRisk TEXT,
-  impactOfRisk TEXT,
-  likelihoodOfRisk TEXT,
-  mitigationOfRisk TEXT,
+  descriptionOfRisk VARCHAR(max),
+  impactOfRisk VARCHAR(max),
+  likelihoodOfRisk VARCHAR(max),
+  mitigationOfRisk VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_infrastructures_id) REFERENCES generic_baselineData_infrastructures(id)
 );
@@ -242,12 +242,12 @@ UPDATE generic_baselineData_infrastructures SET housingSitesBenefitting = 'Housi
 CREATE TABLE generic_baselineData_fundingProfiles (
   generic_baselineData_id INT,
   id INT,
-  period TEXT,
-  instalment1 TEXT,
-  instalment2 TEXT,
-  instalment3 TEXT,
-  instalment4 TEXT,
-  total TEXT,
+  period VARCHAR(max),
+  instalment1 VARCHAR(max),
+  instalment2 VARCHAR(max),
+  instalment3 VARCHAR(max),
+  instalment4 VARCHAR(max),
+  total VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_id) REFERENCES generic_baselineData(id)
 );
@@ -271,12 +271,12 @@ CREATE TABLE generic_baselineData_costs (
 CREATE TABLE generic_baselineData_costs_infrastructure (
   generic_baselineData_costs_id INT,
   id INT,
-  costOfInfrastructure TEXT,
-  totalCostOfInfrastructure TEXT,
-  totallyFundedThroughHIF TEXT,
-  descriptionOfFundingStack TEXT,
-  totalPublic TEXT,
-  totalPrivate TEXT,
+  costOfInfrastructure VARCHAR(max),
+  totalCostOfInfrastructure VARCHAR(max),
+  totallyFundedThroughHIF VARCHAR(max),
+  descriptionOfFundingStack VARCHAR(max),
+  totalPublic VARCHAR(max),
+  totalPrivate VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_costs_id) REFERENCES generic_baselineData_costs(id)
 );
@@ -296,7 +296,7 @@ INSERT INTO generic_baselineData_costs (id) VALUES (0);
 CREATE TABLE generic_baselineData_baselineCashFlow (
   generic_baselineData_id INT,
   id INT,
-  summaryOfRequirement TEXT,
+  summaryOfRequirement VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_id) REFERENCES generic_baselineData(id)
 );
@@ -308,9 +308,9 @@ UPDATE generic_baselineData_baselineCashFlow SET summaryOfRequirement = 'data-ur
 CREATE TABLE generic_baselineData_recovery (
   generic_baselineData_id INT,
   id INT,
-  aimToRecover TEXT,
-  expectedAmountToRecover TEXT,
-  methodOfRecovery TEXT,
+  aimToRecover VARCHAR(max),
+  expectedAmountToRecover VARCHAR(max),
+  methodOfRecovery VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_id) REFERENCES generic_baselineData(id)
 );
@@ -324,8 +324,8 @@ UPDATE generic_baselineData_recovery SET methodOfRecovery = 'Methods' WHERE id =
 CREATE TABLE generic_baselineData_s151 (
   generic_baselineData_id INT,
   id INT,
-  s151FundingEndDate TEXT,
-  s151ProjectLongstopDate TEXT,
+  s151FundingEndDate VARCHAR(max),
+  s151ProjectLongstopDate VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_id) REFERENCES generic_baselineData(id)
 );
@@ -339,7 +339,7 @@ CREATE TABLE generic_baselineData_outputsForecast (
   generic_baselineData_id INT,
   id INT,
   totalUnits INT,
-  disposalStrategy TEXT,
+  disposalStrategy VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_id) REFERENCES generic_baselineData(id)
 );
@@ -347,9 +347,9 @@ CREATE TABLE generic_baselineData_outputsForecast (
 CREATE TABLE generic_baselineData_outputsForecast_housingForecast (
   generic_baselineData_outputsForecast_id INT,
   id INT,
-  period TEXT,
-  target TEXT,
-  housingCompletions TEXT,
+  period VARCHAR(max),
+  target VARCHAR(max),
+  housingCompletions VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_outputsForecast_id) REFERENCES generic_baselineData_outputsForecast(id)
 );
@@ -375,9 +375,9 @@ CREATE TABLE generic_baselineData_outputsActuals (
 CREATE TABLE generic_baselineData_outputsActuals_siteOutputs (
   generic_baselineData_outputsActuals_id INT,
   id INT,
-  siteName TEXT,
-  siteLocalAuthority TEXT,
-  siteNumberOfUnits TEXT,
+  siteName VARCHAR(max),
+  siteLocalAuthority VARCHAR(max),
+  siteNumberOfUnits VARCHAR(max),
   PRIMARY KEY (id),
   FOREIGN KEY (generic_baselineData_outputsActuals_id) REFERENCES generic_baselineData_outputsActuals(id)
 );

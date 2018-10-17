@@ -5,7 +5,7 @@ var fixtureName = 'simple'
 
 describe('MYSQL', function () {
   describe('Checks', function () {
-    var schema = GenerateSchema.mysql(fixtureName, fixtureObj)
+    var schema = GenerateSchema.mssql(fixtureName, fixtureObj)
 
     it('should create table with the name ' + fixtureName, function () {
       assert.ok(schema.indexOf('CREATE TABLE ' + fixtureName) > -1)

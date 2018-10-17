@@ -16,24 +16,24 @@ var file = null
 cli.version(pkg.version)
 cli.usage('[options ...] [file]')
 
-cli.option('-q, --quiet', 'Skip help message in program output', function () { 
-  quiet = true 
+cli.option('-q, --quiet', 'Skip help message in program output', function () {
+  quiet = true
 })
 
-cli.option('-g, --generic', 'Generic JSON Primitives schema output', function () { 
-  mode = 'generic' 
+cli.option('-g, --generic', 'Generic JSON Primitives schema output', function () {
+  mode = 'generic'
 })
 
-cli.option('-j, --json-schema', 'JSON Schema output', function () { 
-  mode = 'json' 
+cli.option('-j, --json-schema', 'JSON Schema output', function () {
+  mode = 'json'
 })
 
 cli.option('-m, --mongoose', 'Mongoose Schema output', function () {
   mode = 'mongoose'
 })
 
-cli.option('-s, --mysql', 'MySQL Table Schema output', function () {
-  mode = 'mysql'
+cli.option('-s, --mssql', 'Microsoft SQL Table Schema and data output', function () {
+  mode = 'mssql'
 })
 
 cli.option('-b, --big-query', 'Google BigQuery Schema output', function () {

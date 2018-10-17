@@ -6,7 +6,7 @@ var foreign_keys = [];
 // Type Mapping
 var types = {
   boolean: 'BOOLEAN',
-  string: 'TEXT',
+  string: 'VARCHAR(max)',
   number: 'INT',
   date: 'DATE',
   timestamp: 'TIMESTAMP',
