@@ -2,6 +2,7 @@
 var Type = require('type-of-is')
 var Utils = require('../utils')
 
+var foreign_keys = [];
 // Type Mapping
 var types = {
   boolean: 'BOOLEAN',
@@ -15,16 +16,16 @@ var types = {
 }
 
 var lang = {
+  str: function(value) {
+    return `'${value}'`
+  },
+
   comment: function(comment) {
     return `--${comment}`
   },
 
-  insert_empty: function(table) {
-    return `INSERT INTO ${table} DEFAULT VALUES;`
-  },
-
-  str: function (value) {
-    return `"${value}"`
+  insert_empty: function(table, id = 0) {
+    return `INSERT INTO ${table} (id) VALUES (${id});`
   },
 
   set: function (table, id, key, value) {
@@ -158,7 +159,7 @@ function processObject (obj, options) {
     }
     //ID is always 0 for initial data unless we're dealing with arrays, which means this is broken for arrays
     if (type === 'string') {
-      data_creation.push(lang.set(name, 0, lang.str(key), value))
+      data_creation.push(lang.set(name, 0, key, lang.str(value)))
     } else if (type === 'number') {
       data_creation.push(lang.set(name, 0, key, value))
     } else {
@@ -174,7 +175,7 @@ function processObject (obj, options) {
   output.push(lang.primary(id))
 
   if (parent) {
-    data_creation.push(lang.set(name, 0, `${parent}_id`, 0))
+    foreign_keys.push(lang.set(name, 0, `${parent}_id`, 0))
     output.push(lang.foreign(parent + '_id', parent, parentId))
   }
 
@@ -195,5 +196,5 @@ module.exports = function Process (tableName, object) {
 
   return processObject(object, {
     tableName: tableName
-  }).join('\n')
+  }).join('\n')+foreign_keys.join('\n')
 }

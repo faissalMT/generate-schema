@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 -c "print(`bin/generate-schema ~/JSONtoSQL/meow.json -s`)"
+python3 -c "print(`bin/generate-schema ~/JSONtoSQL/meow.json -s`)" > out.sql
